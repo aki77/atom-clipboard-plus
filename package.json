@@ -1,0 +1,18 @@
+{
+  "name": "clipboard-plus",
+  "main": "./lib/main",
+  "version": "0.0.0",
+  "description": "Keeps your clipboard history.",
+  "keywords": [
+    "clipboard",
+    "kill-ring"
+  ],
+  "repository": "https://github.com/aki77/atom-clipboard-plus",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.0"
+  }
+}
