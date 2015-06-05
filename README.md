@@ -4,8 +4,9 @@ Keeps your clipboard history.
 
 [![Gyazo](http://i.gyazo.com/a7a0ec5441f2b3088647f4cc585548e1.gif)](http://gyazo.com/a7a0ec5441f2b3088647f4cc585548e1)
 
-## Usage
+## Features
 * can use the copy/cut command of core.
+* support for multiple cursors
 * clipboard-plus and [emacs package](https://atom.io/packages/emacs) can coexist.
 
 ## Commands
