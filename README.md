@@ -1,6 +1,7 @@
 # clipboard-plus package
 
 Keeps your clipboard history.
+[![Build Status](https://travis-ci.org/aki77/atom-clipboard-plus.svg)](https://travis-ci.org/aki77/atom-clipboard-plus)
 
 [![Gyazo](http://i.gyazo.com/a7a0ec5441f2b3088647f4cc585548e1.gif)](http://gyazo.com/a7a0ec5441f2b3088647f4cc585548e1)
 
