@@ -8,6 +8,7 @@ Keeps your clipboard history.
 ## Features
 * can use the copy/cut command of core.
 * support for multiple cursors
+* basic support system clipboard
 * clipboard-plus and [emacs package](https://atom.io/packages/emacs) can coexist.
 
 ## Commands
