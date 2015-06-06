@@ -23,7 +23,8 @@ class ClipboardItems
 
   wrapClipboard: ->
     {clipboard} = atom
-    write = clipboard.write
+    {write, readWithMetadata} = clipboard
+
     clipboard.write = (text, metadata = {}) =>
       ignore = metadata.ignore ? false
       delete metadata.ignore
@@ -41,8 +42,15 @@ class ClipboardItems
       @items.pop() if replace
       @push({text, metadata})
 
+    clipboard.readWithMetadata = ->
+      result = readWithMetadata.call(clipboard)
+      # copy from system clipboard to atom clipboard
+      clipboard.write(result.text) unless result.hasOwnProperty('metadata')
+      result
+
     new Disposable ->
       clipboard.write = write
+      clipboard.readWithMetadata = readWithMetadata
 
   push: ({text, metadata}) ->
     @deleteByText(text) if atom.config.get('clipboard-plus.unique')
@@ -71,6 +79,10 @@ class ClipboardItems
 
   serialize: ->
     items: @items.slice()
+
+  syncSystemClipboard: ->
+    atom.clipboard.readWithMetadata()
+    this
 
   isIgnoreText: (text) ->
     return true if text.match(/^\s+$/)

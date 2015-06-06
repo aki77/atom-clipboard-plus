@@ -1,3 +1,4 @@
+systemClipboard = require 'clipboard'
 ClipboardItems = require '../lib/clipboard-items'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
@@ -19,10 +20,21 @@ describe "ClipboardItems", ->
   afterEach ->
     clipboardItems.destroy()
 
-  it "write", ->
-    expect(clipboardItems.size()).toBe 0
-    atom.clipboard.write('next')
-    expect(clipboardItems.size()).toBe 1
+  describe 'write', ->
+    it "atom clipboard", ->
+      expect(clipboardItems.size()).toBe 0
+      atom.clipboard.write('next')
+      expect(clipboardItems.size()).toBe 1
+
+    it "system clipboard", ->
+      expect(clipboardItems.size()).toBe 0
+      atom.clipboard.write('abc')
+      systemClipboard.writeText('123')
+      expect(clipboardItems.size()).toBe 1
+      expect(clipboardItems.get(0).text).toBe 'abc'
+      clipboardItems.syncSystemClipboard()
+      expect(clipboardItems.size()).toBe 2
+      expect(clipboardItems.get(1).text).toBe '123'
 
   it "limit", ->
     expect(clipboardItems.size()).toBe 0

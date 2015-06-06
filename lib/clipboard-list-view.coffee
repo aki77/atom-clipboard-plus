@@ -43,5 +43,5 @@ class ClipboardListView extends SelectListView
     if @panel?
       @cancel()
     else if @editor = atom.workspace.getActiveTextEditor()
-      @setItems(@clipboardItems.entries().reverse())
+      @setItems(@clipboardItems.syncSystemClipboard().entries().reverse())
       @attach()
