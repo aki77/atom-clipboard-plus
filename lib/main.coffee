@@ -24,7 +24,7 @@ module.exports =
       type: 'integer'
       default: 1000
       minimum: 10
-      maximum: 1000
+      maximum: 5000
 
   activate: (state) ->
     @clipboardItems = new ClipboardItems(state.clipboardItemsState)

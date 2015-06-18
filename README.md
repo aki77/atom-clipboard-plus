@@ -9,12 +9,11 @@ Keeps your clipboard history.
 * can use the copy/cut command of core.
 * support for multiple cursors
 * basic support system clipboard
-* clipboard-plus and [emacs package](https://atom.io/packages/emacs) can coexist.
+* coexist with [emacs-plus package](https://atom.io/packages/emacs-plus).
 
 ## Commands
 * `clipboard-plus:toggle`
 * `clipboard-plus:clear`
-
 
 ## Keymap
 
@@ -42,8 +41,17 @@ edit `~/.atom/keymap.cson`
   'alt-y': 'clipboard-plus:toggle'
 ```
 
+## Settings
+
+* `limit` (default: 50)
+* `unique` (default: true)
+* `minimumTextLength`: (default: 3)
+* `maximumTextLength`: (default: 1000)
+
+[![Gyazo](http://i.gyazo.com/07358bcce48205afed9c896759fa4166.png)](http://gyazo.com/07358bcce48205afed9c896759fa4166)
+
 ## TODO
 
 - [ ] ui improvements
-- [ ] watch system clipboard
-- [ ] multiple projects
+- [x] watch system clipboard
+- [ ] Share a history with multiple projects
