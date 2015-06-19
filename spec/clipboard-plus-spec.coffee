@@ -4,14 +4,15 @@
 # or `fdescribe`). Remove the `f` to unfocus the block.
 
 describe "ClipboardPlus", ->
-  [workspaceElement, editor, editorElement] = []
+  [workspaceElement, editor, editorElement, clipboardPlus] = []
 
   beforeEach ->
     workspaceElement = atom.views.getView(atom.workspace)
     jasmine.attachToDOM(workspaceElement)
 
     waitsForPromise ->
-      atom.packages.activatePackage('clipboard-plus')
+      atom.packages.activatePackage('clipboard-plus').then (pack) ->
+        clipboardPlus = pack.mainModule
 
     waitsForPromise ->
       atom.workspace.open().then (_editor) ->
@@ -48,3 +49,25 @@ describe "ClipboardPlus", ->
       expect(clipboardPlusElement).toBeVisible()
       atom.commands.dispatch editorElement, 'clipboard-plus:toggle'
       expect(clipboardPlusElement).not.toBeVisible()
+
+  describe 'provide', ->
+    [clipboardListView, clipboardItems, service] = []
+
+    beforeEach ->
+      {clipboardItems} = clipboardPlus
+      service = clipboardPlus.provide()
+
+    it 'registerPasteAction', ->
+      service.registerPasteAction((_editor, item) ->
+        text = "hello #{item.text}"
+        _editor.insertText(text)
+      )
+
+      expect(editor.getText()).toBe('')
+      atom.clipboard.write('world')
+
+      atom.commands.dispatch(editorElement, 'clipboard-plus:toggle')
+      clipboardListView = atom.workspace.getModalPanels()[0].getItem()
+
+      clipboardListView.confirmed(clipboardItems.get(0))
+      expect(editor.getText()).toBe('hello world')

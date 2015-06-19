@@ -14,5 +14,13 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.0"
+  },
+  "providedServices": {
+    "clipboard-plus": {
+      "description": "",
+      "versions": {
+        "0.1.0": "provide"
+      }
+    }
   }
 }

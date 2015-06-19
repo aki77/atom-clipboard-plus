@@ -1,3 +1,6 @@
+## 0.3.0
+* Support services api
+
 ## 0.2.1
 * Update README
 

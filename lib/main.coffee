@@ -38,12 +38,23 @@ module.exports =
     @subscription = null
     @clipboardItems?.destroy()
     @clipboardItems = null
+    @clipboardListView?.destroy()
+    @clipboardListView = null
 
   serialize: ->
     clipboardItemsState: @clipboardItems.serialize()
 
   toggle: ->
+    @getView().toggle()
+
+  provide: ->
+    view = @getView()
+    {
+      registerPasteAction: view.registerPasteAction.bind(view)
+    }
+
+  getView: ->
     unless @clipboardListView?
       ClipboardListView = require './clipboard-list-view'
       @clipboardListView = new ClipboardListView(@clipboardItems)
-    @clipboardListView.toggle()
+    @clipboardListView
