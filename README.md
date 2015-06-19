@@ -41,6 +41,10 @@ edit `~/.atom/keymap.cson`
   'alt-y': 'clipboard-plus:toggle'
 ```
 
+**vim user**
+
+Please use [vim-mode-clipboard-plus](https://atom.io/packages/vim-mode-clipboard-plus).
+
 ## Settings
 
 * `limit` (default: 50)

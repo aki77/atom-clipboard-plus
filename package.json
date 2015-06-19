@@ -5,7 +5,8 @@
   "description": "Keeps your clipboard history.",
   "keywords": [
     "clipboard",
-    "kill-ring"
+    "kill-ring",
+    "emacs"
   ],
   "repository": "https://github.com/aki77/atom-clipboard-plus",
   "license": "MIT",
