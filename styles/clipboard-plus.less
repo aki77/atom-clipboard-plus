@@ -1,8 +1,48 @@
-.clipboard-plus {
+@import "ui-variables";
+
+.clipboard-plus.select-list {
   span.text {
     overflow: hidden;
     text-overflow: ellipsis;
     width: 38em;
     display: inline-block;
+  }
+}
+
+atom-panel.clipboard-plus {
+  color: @text-color;
+  background-color: transparent;
+  padding: @ui-padding/2;
+
+  atom-text-editor[mini] {
+    margin-bottom: @ui-padding/2;
+  }
+
+  .select-list ol.list-group {
+    border: 1px solid @overlay-border-color;
+    background-color: lighten(@overlay-background-color, 2%);
+
+    &:empty {
+      border: none;
+      margin-top: 0;
+    }
+
+    li {
+      padding: @ui-padding/2 @ui-padding/1.5;
+      line-height: @ui-line-height;
+      border-bottom: 1px solid @overlay-border-color;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+
+      pre {
+        background: transparent;
+        .character-match {
+          color: @text-color-highlight;
+          font-weight: bold;
+        }
+      }
+    }
   }
 }

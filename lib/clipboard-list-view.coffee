@@ -1,5 +1,4 @@
-{$$, SelectListView} = require 'atom-space-pen-views'
-{timeSince} = require './util'
+{SelectListView} = require 'atom-space-pen-views'
 
 module.exports =
 class ClipboardListView extends SelectListView
@@ -13,18 +12,6 @@ class ClipboardListView extends SelectListView
 
   getFilterKey: ->
     'text'
-
-  viewForItem: ({text, metadata}) ->
-    time = timeSince(metadata.time) if metadata.time?
-
-    $$ ->
-      @li =>
-        @div class: 'pull-right', =>
-          @span time
-        @span class: 'text', text.substr(0, 100).replace("\n", "⏎")
-
-  selectItemView: (view) ->
-    super
 
   cancelled: ->
     @panel?.destroy()
@@ -46,8 +33,11 @@ class ClipboardListView extends SelectListView
 
   attach: ->
     @storeFocusedElement()
-    @panel ?= atom.workspace.addModalPanel(item: this)
+    @panel ?= @addPanel()
     @focusFilterEditor()
+
+  addPanel: ->
+    throw new Error("Subclass must implement a addPanel() method")
 
   toggle: ->
     if @panel?

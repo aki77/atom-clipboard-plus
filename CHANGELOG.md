@@ -1,3 +1,6 @@
+## 0.4.0
+* ui improvements
+
 ## 0.3.0
 * Support services api
 

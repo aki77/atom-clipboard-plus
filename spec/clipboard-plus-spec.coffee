@@ -20,13 +20,25 @@ describe "ClipboardPlus", ->
         editorElement = atom.views.getView(editor)
 
   describe "when the clipboard-plus:toggle event is triggered", ->
-    it "hides and shows the modal panel", ->
+    it "hides and shows the bottom panel", ->
       # Before the activation event the view is not on the DOM, and no panel
       # has been created
       expect(workspaceElement.querySelector('.clipboard-plus')).not.toExist()
 
       # This is an activation event, triggering it will cause the package to be
       # activated.
+      atom.commands.dispatch editorElement, 'clipboard-plus:toggle'
+
+      expect(workspaceElement.querySelector('.clipboard-plus')).toExist()
+
+      clipboardPlusPanel = atom.workspace.getBottomPanels()[0]
+      expect(clipboardPlusPanel.isVisible()).toBe true
+      atom.commands.dispatch editorElement, 'clipboard-plus:toggle'
+      expect(clipboardPlusPanel.isVisible()).toBe false
+
+    it "hides and shows the modal panel", ->
+      atom.config.set('clipboard-plus.useSimpleView', true)
+      expect(workspaceElement.querySelector('.clipboard-plus')).not.toExist()
       atom.commands.dispatch editorElement, 'clipboard-plus:toggle'
 
       expect(workspaceElement.querySelector('.clipboard-plus')).toExist()
@@ -67,7 +79,7 @@ describe "ClipboardPlus", ->
       atom.clipboard.write('world')
 
       atom.commands.dispatch(editorElement, 'clipboard-plus:toggle')
-      clipboardListView = atom.workspace.getModalPanels()[0].getItem()
+      clipboardListView = atom.workspace.getBottomPanels()[0].getItem()
 
       clipboardListView.confirmed(clipboardItems.get(0))
       expect(editor.getText()).toBe('hello world')
