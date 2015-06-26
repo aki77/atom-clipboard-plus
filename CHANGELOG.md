@@ -1,3 +1,6 @@
+## 0.4.2
+* Remove keymaps/clipboard-plus.cson 
+
 ## 0.4.1
 * Fix #3
 
