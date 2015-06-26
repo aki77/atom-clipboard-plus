@@ -3,7 +3,7 @@
 Keeps your clipboard history.
 [![Build Status](https://travis-ci.org/aki77/atom-clipboard-plus.svg)](https://travis-ci.org/aki77/atom-clipboard-plus)
 
-[![Gyazo](http://i.gyazo.com/9c76d5912ba1666c09e88d35088c6d53.gif)](http://gyazo.com/9c76d5912ba1666c09e88d35088c6d53)
+[![Gyazo](http://i.gyazo.com/48cfc66c8f8b7666efb7334d928f1a9e.gif)](http://gyazo.com/48cfc66c8f8b7666efb7334d928f1a9e)
 
 ## Features
 * can use the copy/cut command of core.
@@ -17,15 +17,7 @@ Keeps your clipboard history.
 
 ## Keymap
 
-### default
-
-```coffeescript
-'.select-list.with-actions':
-  'tab': 'select-list:select-action'
-  'ctrl-i': 'select-list:select-action'
-```
-
-### edit `~/.atom/keymap.cson`
+edit `~/.atom/keymap.cson`
 
 **general**
 
@@ -58,6 +50,12 @@ Please use [vim-mode-clipboard-plus](https://atom.io/packages/vim-mode-clipboard
 * `minimumTextLength`: (default: 3)
 * `maximumTextLength`: (default: 1000)
 * `maximumLinesNumber`: (default: 5)
+
+## Usage
+
+**remove one item from the history**
+
+[![Gyazo](http://i.gyazo.com/17d3a26bfb5b069b71aedb64acab846f.gif)](http://gyazo.com/17d3a26bfb5b069b71aedb64acab846f)
 
 ## TODO
 
