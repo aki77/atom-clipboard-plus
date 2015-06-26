@@ -37,10 +37,6 @@ module.exports =
       minimum: 0
       maximum: 20
       description: 'Max number of lines displayed per history.If zero (disabled), don\'t truncate candidate, show all.'
-    useSimpleView:
-      order: 10
-      type: 'boolean'
-      default: false
 
   activate: (state) ->
     @clipboardItems = new ClipboardItems(state.clipboardItemsState)
@@ -65,7 +61,9 @@ module.exports =
     clipboardItemsState: @clipboardItems.serialize()
 
   toggle: ->
-    @getView().toggle()
+    view = @getView()
+    view.setItems(@clipboardItems.entries().reverse())
+    view.toggle()
 
   provide: ->
     view = @getView()
@@ -75,13 +73,8 @@ module.exports =
 
   getView: ->
     unless @clipboardListView?
-      if atom.config.get('clipboard-plus.useSimpleView')
-        viewFile = 'clipboard-list-modal-view'
-      else
-        viewFile = 'clipboard-list-bottom-view'
-
-      View = require "./#{viewFile}"
-      @clipboardListView = new View(@clipboardItems)
+      ClipboardListView = require './clipboard-list-view'
+      @clipboardListView = new ClipboardListView({@clipboardItems})
     @clipboardListView
 
   destroyView: ->

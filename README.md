@@ -17,12 +17,15 @@ Keeps your clipboard history.
 
 ## Keymap
 
-No keymap by default.
+### default
 
-edit `~/.atom/keymap.cson`
-## Commands
-* `clipboard-plus:toggle`
-* `clipboard-plus:clear`
+```coffeescript
+'.select-list.with-actions':
+  'tab': 'select-list:select-action'
+  'ctrl-i': 'select-list:select-action'
+```
+
+### edit `~/.atom/keymap.cson`
 
 **general**
 
@@ -55,13 +58,10 @@ Please use [vim-mode-clipboard-plus](https://atom.io/packages/vim-mode-clipboard
 * `minimumTextLength`: (default: 3)
 * `maximumTextLength`: (default: 1000)
 * `maximumLinesNumber`: (default: 5)
-* `useSimpleView`: (default: false)
-
-  [![Gyazo](http://i.gyazo.com/5adfcca3153a0bc9de4f1272369c9720.png)](http://gyazo.com/5adfcca3153a0bc9de4f1272369c9720)
 
 ## TODO
 
 - [x] ui improvements
 - [x] watch system clipboard
 - [ ] Share a history with multiple projects
-- [ ] remove one item from the history
+- [x] remove one item from the history
