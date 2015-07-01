@@ -1,3 +1,6 @@
+## 0.5.1
+* Replace SelectListActionView with @aki77/atom-select-action
+
 ## 0.5.0
 * Update view
 * Support remove one item

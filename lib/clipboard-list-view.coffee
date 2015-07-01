@@ -1,28 +1,30 @@
-{$$} = require 'atom-space-pen-views'
 {match} = require 'fuzzaldrin'
-SelectActionView = require './select-list-action-view'
+ActionSelectListView = require '@aki77/atom-select-action'
 
 module.exports =
-class ClipboardListView extends SelectActionView
-  className: 'clipboard-plus'
+class ClipboardListView extends ActionSelectListView
+  panelClass: 'clipboard-plus'
 
-  initialize: ({@clipboardItems}) ->
-    super
-    @addClass('clipboard-plus')
+  constructor: (@clipboardItems) ->
+    super({
+      items: @getItems
+      filterKey: 'text'
+      actions: [
+        {
+          name: 'Paste'
+          callback: @paste
+        }
+        {
+          name: 'Remove'
+          callback: @remove
+        }
+      ]
+    })
+
     @registerPasteAction(@defaultPasteAction)
-    @setActions([
-      {
-        name: 'Paste'
-        callback: @paste
-      }
-      {
-        name: 'Remove'
-        callback: @remove
-      }
-    ])
 
-  getFilterKey: ->
-    'text'
+  getItems: =>
+    @clipboardItems.entries().reverse()
 
   # Insert item in clipboardItems and set item to the head
   paste: (item) =>
@@ -30,11 +32,9 @@ class ClipboardListView extends SelectActionView
     atom.clipboard.write(item.text, item.metadata)
     editor = atom.workspace.getActiveTextEditor()
     @pasteAction(editor, item)
-    @cancel()
 
   remove: (item) =>
     @clipboardItems.delete(item)
-    @cancel()
 
   registerPasteAction: (fn) ->
     @pasteAction = fn
@@ -42,33 +42,11 @@ class ClipboardListView extends SelectActionView
   defaultPasteAction: (editor, item) ->
     editor.pasteText()
 
-  viewForItem: ({text, metadata}) ->
-    filterQuery = @getFilterQuery()
+  contentForItem: ({text}, filterQuery) =>
     matches = match(text, filterQuery)
     {truncateText} = this
 
-    $$ ->
-      # https://github.com/atom/command-palette/blob/master/lib/command-palette-view.coffee#L60
-      highlighter = (text, matches, offsetIndex) =>
-        lastIndex = 0
-        matchedChars = [] # Build up a set of matched chars to be more semantic
-
-        for matchIndex in matches
-          matchIndex -= offsetIndex
-          continue if matchIndex < 0 # If marking up the basename, omit command matches
-          unmatched = text.substring(lastIndex, matchIndex)
-          if unmatched
-            @span matchedChars.join(''), class: 'character-match' if matchedChars.length
-            matchedChars = []
-            @text unmatched
-          matchedChars.push(text[matchIndex])
-          lastIndex = matchIndex + 1
-
-        @span matchedChars.join(''), class: 'character-match' if matchedChars.length
-
-        # Remaining characters are plain text
-        @text text.substring(lastIndex)
-
+    ({highlighter}) ->
       @li =>
         @div =>
           @pre -> highlighter(truncateText(text), matches, 0)

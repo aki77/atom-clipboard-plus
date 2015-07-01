@@ -14,7 +14,7 @@
     "atom": ">=0.174.0 <2.0.0"
   },
   "dependencies": {
-    "atom-space-pen-views": "^2.0.0",
+    "@aki77/atom-select-action": "^0.1.0",
     "fuzzaldrin": "^2.1.0"
   },
   "providedServices": {

@@ -1,4 +1,5 @@
 {CompositeDisposable} = require 'atom'
+ClipboardListView = null
 ClipboardItems = require './clipboard-items'
 
 module.exports =
@@ -61,9 +62,7 @@ module.exports =
     clipboardItemsState: @clipboardItems.serialize()
 
   toggle: ->
-    view = @getView()
-    view.setItems(@clipboardItems.entries().reverse())
-    view.toggle()
+    @getView().toggle()
 
   provide: ->
     view = @getView()
@@ -72,10 +71,8 @@ module.exports =
     }
 
   getView: ->
-    unless @clipboardListView?
-      ClipboardListView = require './clipboard-list-view'
-      @clipboardListView = new ClipboardListView({@clipboardItems})
-    @clipboardListView
+    ClipboardListView ?= require './clipboard-list-view'
+    @clipboardListView ?= new ClipboardListView(@clipboardItems)
 
   destroyView: ->
     @clipboardListView?.destroy()
